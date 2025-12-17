@@ -1,0 +1,26 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          # The root file to compile
+          root_file: imo-geometry/2024/imo2024_shortlist.tex
+          # Use the latexmkrc in the root
+          # The action runs in the workspace root by default
+          args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode"
+          # Ensure -shell-escape is enabled as per local latexmkrc (though latexmkrc handles it, passing it explicitly helps visibility)
+          # Actually, the local latexmkrc sets $pdflatex to include -shell-escape.
+          # latexmk will use the config file found in the directory.

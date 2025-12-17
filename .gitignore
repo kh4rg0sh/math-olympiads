@@ -1,0 +1,23 @@
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.fls
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.synctex.gz
+*.pre
+
+# Generated PDFs
+*.pdf
+!imo-geometry/2024/imo2024_shortlist.pdf
+
+# Asymptote
+*.asy
+*.eps
+
+# Editor
+.vscode/
+.idea/

@@ -1,0 +1,259 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[sexy]{evan}
+
+\usepackage{answers}
+\usepackage{asymptote}
+\usepackage{hyperref}
+
+\begin{document}
+\title{IMO 2024 Shortlist}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+This article contains my solutions to the IMO 2024 Shortlist.
+\tableofcontents
+
+\section{IMO Shortlist 2024 G1}
+\begin{problem*}
+    Let $ABCD$ be a cyclic quadrilateral such that $AC<BD<AD$ and $\angle DBA<90^\circ$. Point $E$ lies on the line through $D$ parallel to $AB$ such that $E$ and $C$ lie on opposite sides of line $AD$, and $AC=DE$. Point $F$ lies on the line through $A$ parallel to $CD$ such that $F$ and $C$ lie on opposite sides of line $AD$, and $BD=AF$. Prove that the perpendicular bisectors of segments $BC$ and $EF$ intersect on the circumcircle of $ABCD$.
+
+    \textit{Proposed by Mykhailo Shtandenko, Ukraine}
+\end{problem*}
+
+\begin{center}
+    \begin{asy}
+        import geometry;
+        size(8cm);
+
+        pair A = (0, 0);
+        pair B = (2, -5);
+        pair C = (5, -5);
+
+        pair O = circumcenter(A, B, C);
+        real R = length(A - O);
+        circle omega = circumcircle(A, B, C);
+
+        draw(omega);
+
+        dot("$A$", A, W);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+
+        real theta = -15;
+        pair D = O + R * dir(theta);
+
+        dot("$D$", D, NE);
+
+        pair E = D + (A - B) * length(A - C) / length(A - B);
+        dot("$E$", E, NE);
+
+        pair F = A + (D - C) * length(D - B) / length(D - C);
+        dot("$F$", F, NW);
+
+        pair Y = intersectionpoint(line(A, F), line(D, E));
+        dot("$Y$", Y, N);
+
+        pair Z = intersectionpoint(F--C, E--B);
+        dot("$Z$", Z, NE);
+
+        pair M = (B + C) / 2;
+        line l = line(M, M + rotate(90) * (C - B));
+        pair[] X = intersectionpoints(l, omega);
+        dot("$X$", X[1], NW);
+
+        draw(B--X[1], purple);
+        draw(C--X[1], purple);
+        draw(F--X[1], purple);
+        draw(E--X[1], purple);
+        draw(F--E, purple);
+        draw(B--C, purple);
+        draw(F--Y, purple);
+        draw(E--Y, purple);
+        draw(F--C, red);
+        draw(B--E, dashed+red);
+        draw(A--F);
+        draw(D--E);
+        draw(A--C);
+        draw(B--D);
+        draw(A--D);
+        draw(C--D);
+        draw(A--B);
+
+        fill(A--F--C--cycle, orange+opacity(0.1));
+        fill(B--D--E--cycle, orange+opacity(0.1));
+
+    \end{asy}
+\end{center}
+
+\begin{proof}
+    We shall introduce a few points in the diagram. Let $AF$ $\cap$ $DE$ $=$ $Y$, $FC$ $\cap$ $\odot$ $(ABCD)$ $=$ $Z$ and $X$ be a point on $(ABCD)$ such that $BX$ $=$ $CX$.
+
+    \begin{claim} 
+        $\triangle$ $EDB$ is congruent to $\triangle$ $CAF$.
+    \end{claim}
+
+    \begin{proof}
+        Since, we are given that $ED$ $=$ $CA$ and $DB$ $=$ $AF$. It suffices to show that $\angle EDB$ $=$ $\angle CAF$. We use the face that $AF$ $\parallel$ $CD$ and $DE$ $\parallel$ $BA$.
+
+        \begin{align*}
+            \angle EDB &= 180^{\circ} - \angle ABD \\ 
+                        &= 180^{\circ} - \angle ACD \\ 
+                        &= \angle CAF
+        \end{align*}
+
+        which proves the congruency using SAS congruency criterion.
+    \end{proof}
+
+    \begin{claim}
+        $Z$ lies on the line segment $BE$.
+    \end{claim}
+
+    \begin{proof}
+        Observe that, 
+        \begin{align*}
+            \angle ABZ &= \angle ACZ \\ 
+                    &= \angle ACF \\ 
+                    &= \angle DEB \\ 
+                    &= \angle ABE
+        \end{align*}
+
+        which forces the collinearity.
+    \end{proof}
+
+    \begin{claim}
+        $\triangle$ $FXC$ is congruent to $\triangle$ $EXB$.
+    \end{claim}
+
+    \begin{proof}
+        Since, $\triangle$ $EDB$ $\cong$ $\triangle$ $CAF$ $\implies$ $ FC$ $=$ $BE$. From the definition of point $X$, we have $BX$ $=$ $CX$. We can prove this claim using SAS congruency criterion, if we can show that $\angle XBE$ $=$ $\angle XCF$. Fortunately, this is a trivial angle chase.
+        \begin{align*}
+            \angle XBE &= \angle XBZ \\ 
+                        &= \angle XCZ \\ 
+                        &= \angle XCF
+        \end{align*}
+        which proves the congruency.
+    \end{proof}
+
+    Since, $\triangle$ $XBE$ $\cong$ $\triangle$ $XCF$ $\implies$ $FX$ $=$ $XE$ $\implies$ $X$ lies on the perpendicular bisector of line segment $FE$ and by definition of point $X$, $X$ is the intersection of the perpendicular bisector of line segment $BC$ and $\odot (ABCD)$, which proves that the perpendicular bisectors of line segments $BC$ and $EF$ intersect on the circumcircle of $ABCD$.
+\end{proof}
+
+\section{IMO Shortlist 2024 G2}
+\begin{problem*}
+    Let $ABC$ be a triangle with $AB < AC < BC$. Let the incenter and incircle of triangle $ABC$ be $I$ and $\omega$, respectively. Let $X$ be the point on line $BC$ different from $C$ such that the line through $X$ parallel to $AC$ is tangent to $\omega$. Similarly, let $Y$ be the point on line $BC$ different from $B$ such that the line through $Y$ parallel to $AB$ is tangent to $\omega$. Let $AI$ intersect the circumcircle of triangle $ABC$ at $P \ne A$. Let $K$ and $L$ be the midpoints of $AC$ and $AB$, respectively. Prove that $\angle KIL + \angle YPX = 180^{\circ}$.
+
+    \textit{Proposed by Dominik Burek, Poland}
+\end{problem*}
+
+\begin{center}
+    \begin{asy}
+        import geometry;
+        size(8cm);
+
+        pair A = (1.5, 3);
+        pair B = (0, 0);
+        pair C = (5, 0);
+        
+        dot("$A$", A, NW);
+        dot("$B$", B, SW);
+        dot("$C$", C, SE);
+
+        pair I = incenter(A, B, C);
+        pair J = I + (I - A);
+
+        pair X = extension(B, C, J, J+A-C);
+        pair Y = extension(B, C, J, J+A-B);
+        pair[] PP = intersectionpoints(line(I, A), circumcircle(A, B, C));
+        pair P = dot(PP[0] - A, A - I) > 0 ? PP[1] : PP[0];
+        pair K = (A + C) / 2;
+        pair L = (A + B) / 2;
+
+        draw(A--B--C--cycle, orange);
+        draw(circumcircle(A, B, C), red);
+        draw(incircle(A, B, C), heavyred);
+
+        draw(circumcircle(B, X, P), dashed+heavycyan);
+        draw(circumcircle(C, Y, P), dashed+heavycyan);
+
+        draw(B--J, lightblue);
+        draw(C--J, lightblue);
+        draw(K--I, lightblue);
+        draw(L--I, lightblue);
+
+        dot("$P$", P, dir(240));
+        dot("$I$", I, dir(210));
+        dot("$A'$", J, dir(240));
+        dot("$K$", K, dir(45));
+        dot("$L$", L, dir(150));
+        dot("$X$", X, dir(240));
+        dot("$Y$", Y, dir(320));
+
+        pair R = extension(J, X, A, B);
+        pair S = extension(J, Y, A, C);
+
+        draw(A--P, orange);
+        draw(L--K, lightblue);
+        draw(B--C, lightblue);
+        draw(R--J--S, orange);
+
+        fill(L--K--I--cycle, lightblue+opacity(0.1));
+        fill(B--C--J--cycle, lightblue+opacity(0.1));
+
+    \end{asy}
+\end{center}
+
+\begin{proof}
+    Let $A'$ be the reflection of point $A$ over point $I$.
+
+    \begin{claim}
+        $A'X$ $\parallel$ $AC$ and $A'Y$ $\parallel$ $AB$.
+    \end{claim}
+
+    \begin{proof}
+        Construct point $E$ on line segment $AC$ such that $\omega$ touches $AC$ at $E$. Reflect the point $E$ over $I$ to $E'$. By SAS congruency criterion $\triangle$ $AIE$ $\cong$ $A'IE'$. Since, $\angle IE'A'$ $=$ $90^{\circ}$ $\implies$ $A'E'$ is tangent to $\omega$ and $A'E'$ $\parallel$ $AC$. However, $X$ lies on the line parallel to $AC$ and tangent to $\omega$ $\implies$ $A'X$ $\parallel$ $AC$, and similarly $A'Y$ $\parallel$ $AB$ which proves the claim.
+    \end{proof}
+
+    \begin{claim}
+        $BXA'P$ and $CYA'P$ are cyclic quadrilaterals.
+    \end{claim}
+
+    \begin{proof}
+        Just angle chasing.
+        \begin{align*}
+            \angle CXA' = \angle BCA = \angle BPA = \angle BPA'
+        \end{align*}
+        which proves that $BXA'P$ is cyclic. Similarly, we can show that $CYA'P$ is cyclic.
+    \end{proof}
+
+    \begin{claim}
+        $\triangle$ $KIL$ is homothetic to $\triangle$ $CA'B$ from point $A$.
+    \end{claim}
+
+    \begin{proof}
+        Since lines $BL$, $A'I$ and $CK$ are concurrent at point $A$ and $AB$ $=$ $2AL$, $A'A$ $=$ $2AI$ and $AC$ $=$ $2AK$ $\implies$ $\triangle$ $KIL$ $\mapsto$ $\triangle CA'B$ under a homothetic transformation with scaling factor $=$ $2$.
+    \end{proof}
+
+    Finally combining all the information from the proved claims,
+
+    \begin{align*}
+        \angle KIL + \angle XPY &= \angle BA'C + \angle XPY \\ 
+                    &= \angle BA'C + \angle XPA' + \angle YPA' \\ 
+                    &= \angle BA'C + \angle XBA' + \angle YCA' \\ 
+                    &= \angle BA'C + \angle CBA' + \angle BCA' \\ 
+                    &= 180^{\circ}
+    \end{align*}
+
+\end{proof}
+
+\section{IMO Shortlist 2024 G3}
+\begin{problem*}
+    Let $ABCDE$ be a convex pentagon and let $M$ be the midpoint of $AB$. Suppose that segment $AB$ is tangent to the circumcircle of triangle $CME$ at $M$ and that $D$ lies on the circumircles of $AME$ and $BMC$. Lines $AD$ and $ME$ interesect at $K$, and lines $BD$ and $MC$ intersect at $L$. Points $P$ and $Q$ lie on line $EC$ so that $\angle PDC = \angle EDQ = \angle ADB$.
+
+    Prove that lines $KP, LQ,$ and $MD$ are concurrent.
+\end{problem*}
+
+
+\end{document}
