@@ -30,8 +30,8 @@ This article contains my solutions to the IMO 2024 Shortlist.
         size(8cm);
 
         pair A = (0, 0);
-        pair B = (2, -5);
-        pair C = (5, -5);
+        pair B = (1, -3);
+        pair C = (5, -3);
 
         pair O = circumcenter(A, B, C);
         real R = length(A - O);
@@ -43,7 +43,7 @@ This article contains my solutions to the IMO 2024 Shortlist.
         dot("$B$", B, SW);
         dot("$C$", C, SE);
 
-        real theta = -15;
+        real theta = -5;
         pair D = O + R * dir(theta);
 
         dot("$D$", D, NE);
@@ -239,7 +239,7 @@ This article contains my solutions to the IMO 2024 Shortlist.
     Finally combining all the information from the proved claims,
 
     \begin{align*}
-        \angle KIL + \angle XPY &= \angle BA'C + \angle XPY \\ 
+        \angle KIL + \angle YPX &= \angle BA'C + \angle YPX \\ 
                     &= \angle BA'C + \angle XPA' + \angle YPA' \\ 
                     &= \angle BA'C + \angle XBA' + \angle YCA' \\ 
                     &= \angle BA'C + \angle CBA' + \angle BCA' \\ 
