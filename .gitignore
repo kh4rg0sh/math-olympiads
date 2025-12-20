@@ -12,7 +12,6 @@
 
 # Generated PDFs
 *.pdf
-!imo-geometry/2024/imo2024_shortlist.pdf
 
 # Asymptote
 *.asy
