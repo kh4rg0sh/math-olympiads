@@ -1,3 +1,4 @@
 */build
 *.tex
 !ioqm_geo_problems.pdf
+!introduction.pdf
